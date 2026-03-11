@@ -1,0 +1,16 @@
+<div class="dropdown dropdown-top">
+  <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+    <i class="fas fa-ellipsis-vertical"></i>
+  </div>
+
+  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[999] w-52 p-2 shadow-lg">
+    @for(button of buttons; track button) {
+      <li>
+        <a>
+          <i [class]="button.icon"></i>
+          {{ button.title }}
+        </a>
+      </li>
+    }
+  </ul>
+</div>

@@ -1,0 +1,28 @@
+<li class="list-row">
+  <div>
+    <app-user-avatar [name]="user().name" [lastname]="user().lastname"></app-user-avatar>
+  </div>
+
+  <div class="list-col-grow">
+    <div>{{ user().name }} {{ user().lastname }}</div>
+    <div class="text-xs font-semibold opacity-60">{{ user().email }}</div>
+    @for (rol of user().roles; track rol) {
+      <div class="text-xs font-semibold opacity-60">{{ rol }}</div>
+    }
+  </div>
+  <div class="tooltip" data-tip="Desactivar Usuario">
+    <app-neutral-button
+      icon="fa-solid fa-circle-pause"
+      extraClass="rounded-xl"
+    ></app-neutral-button>
+  </div>
+
+  <div class="px-20">
+    <select class="w-70 select">
+      <option disabled selected>Asignar Rol</option>
+      <option>Colaborador</option>
+      <option>Administrador</option>
+      <option>Desarrollo</option>
+    </select>
+  </div>
+</li>

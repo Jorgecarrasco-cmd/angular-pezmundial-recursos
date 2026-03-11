@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+}
+
+.nav-active {
+  background-color: #074d82 !important;
+  color: white !important;
+}
+
+.nav-active i,
+.nav-active span {
+  color: white !important;
+}

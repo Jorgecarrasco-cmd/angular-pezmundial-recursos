@@ -1,0 +1,61 @@
+<div class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-base-100 rounded-3xl shadow-xl w-full max-w-md p-8 flex flex-col gap-6">
+    <!-- Logo -->
+    <div class="flex flex-col items-center gap-2">
+      <img src="assets/sello-mision.svg" class="w-24 h-24" />
+      <h1 class="text-2xl font-bold">Iniciar Sesion</h1>
+      <p class="text-base-content/50 text-sm">Completa el formulario para iniciar sesion</p>
+    </div>
+
+    <div class="divider my-0"></div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4">
+
+      <!-- Email -->
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-semibold">Correo electrónico</label>
+        <label class="input input-bordered flex items-center gap-2 w-full">
+          <i class="fas fa-envelope text-base-content/40"></i>
+          <input
+            formControlName="email"
+            type="email"
+            class="grow"
+            placeholder="correo@ejemplo.com"
+          />
+        </label>
+        @if (form.get('email')?.invalid && form.get('email')?.touched) {
+          <span class="text-error text-xs">Ingresa un correo válido</span>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-semibold">Contraseña</label>
+        <label class="input input-bordered flex items-center gap-2 w-full">
+          <i class="fas fa-lock text-base-content/40"></i>
+          <input formControlName="password" type="password" class="grow" placeholder="••••••••" />
+        </label>
+        @if (form.get('password')?.invalid && form.get('password')?.touched) {
+          <span class="text-error text-xs">Mínimo 6 caracteres</span>
+        }
+      </div>
+
+      <!-- Confirmar Password -->
+
+
+      <!-- Botón -->
+      <app-neutral-button
+        extraClass="w-full mt-2"
+        text="Iniciar Sesion"
+        icon="fa-solid fa-person-circle-plus"
+        (onClick)="submit()"
+        type="submit"
+      />
+    </form>
+
+    <p class="text-center text-sm text-base-content/50">
+      ¿No tienes cuenta?
+      <a class="text-[#074d82] font-semibold cursor-pointer" routerLink="/register">Registrate</a>
+    </p>
+  </div>
+</div>

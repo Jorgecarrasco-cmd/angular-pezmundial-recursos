@@ -1,0 +1,23 @@
+@if (loading()) {
+  <app-loading-bar-component></app-loading-bar-component>
+}
+
+<div class="p-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
+    @for (resource of data(); track resource.id) {
+      <app-resource-card
+        [title]="resource.title"
+        [resume]="resource.resume"
+        [imageUrl]="resource.frontpage.url"
+        [author]="resource.author.name"
+        [date]="resource.date"
+        [bibleBook]="resource.bibleBook.title"
+        [private]="resource.private"
+      />
+    }
+  </div>
+</div>
+
+@if (meta(); as m) {
+  <app-pagination [meta]="m" (pageChange)="goToPage($event)" />
+}

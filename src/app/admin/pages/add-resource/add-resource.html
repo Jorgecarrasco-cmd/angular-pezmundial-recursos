@@ -1,0 +1,180 @@
+<div class="max-w-3xl mx-auto py-8 px-4">
+  <div class="flex items-center gap-3 mb-8">
+    <h1 class="text-2xl font-bold">Agregar Recurso</h1>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
+    <!-- Título -->
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Título *</legend>
+      <input
+        type="text"
+        formControlName="title"
+        placeholder="Título del recurso"
+        class="input input-bordered w-full"
+      />
+      @if (form.get('title')?.invalid && form.get('title')?.touched) {
+        <p class="text-error text-sm mt-1">Mínimo 5 caracteres</p>
+      }
+    </fieldset>
+
+    <!-- Fecha y Privado -->
+    <div class="grid grid-cols-2 gap-4">
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Fecha *</legend>
+
+        <input
+          (click)="toggleCalendar()"
+          type="text"
+          [value]="form.value.date || 'Selecciona una fecha'"
+          class="input input-bordered w-full mb-2"
+          readonly
+        />
+
+        @if (calendarOpened()) {
+          <calendar-date
+            class="cally bg-base-100 border border-base-300 shadow-lg rounded-box"
+            (change)="onDateChange($event)"
+          >
+            <svg
+              aria-label="Previous"
+              class="fill-current size-4"
+              slot="previous"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path fill="currentColor" d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+            </svg>
+            <svg
+              aria-label="Next"
+              class="fill-current size-4"
+              slot="next"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path fill="currentColor" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+            </svg>
+            <calendar-month></calendar-month>
+          </calendar-date>
+        }
+
+        @if (form.get('date')?.invalid && form.get('date')?.touched) {
+          <p class="text-error text-sm mt-1">La fecha es requerida</p>
+        }
+      </fieldset>
+
+      <fieldset class="fieldset justify-center">
+        <legend class="fieldset-legend">Visibilidad</legend>
+        <label class="label cursor-pointer gap-3">
+          <span class="label-text">Privado</span>
+          <input type="checkbox" formControlName="private" class="toggle toggle-primary" />
+        </label>
+      </fieldset>
+    </div>
+
+    <!-- Autor y Serie -->
+    <div class="grid grid-cols-2 gap-4">
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Autor *</legend>
+        <select formControlName="authorId" class="select select-bordered w-full">
+          <option value="">Seleccionar autor</option>
+          @for (author of authors(); track author.id) {
+            <option [value]="author.id">{{ author.name }}</option>
+          }
+        </select>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Serie *</legend>
+        <select formControlName="serieId" class="select select-bordered w-full">
+          <option value="">Seleccionar serie</option>
+          @for (serie of series(); track serie.id) {
+            <option [value]="serie.id">{{ serie.title }}</option>
+          }
+        </select>
+      </fieldset>
+    </div>
+
+    <!-- Libro Bíblico -->
+
+    <!-- Tags -->
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Etiquetas</legend>
+      <div class="flex flex-wrap gap-2">
+        @for (tag of tags(); track tag.id) {
+          <button
+            type="button"
+            (click)="toggleTag(tag.id)"
+            class="badge badge-lg cursor-pointer"
+            [class.badge-primary]="isTagSelected(tag.id)"
+            [class.badge-outline]="!isTagSelected(tag.id)"
+          >
+            {{ tag.title }}
+          </button>
+        }
+      </div>
+    </fieldset>
+
+    <!-- Descripción -->
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Descripción</legend>
+      <textarea
+        formControlName="description"
+        placeholder="Descripción del recurso..."
+        class="textarea textarea-bordered w-full h-24"
+      ></textarea>
+    </fieldset>
+
+    <!-- Resumen -->
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">
+        Resumen <span class="text-base-content/50 text-xs">(máx. 250)</span>
+      </legend>
+      <textarea
+        formControlName="resume"
+        placeholder="Resumen breve..."
+        class="textarea textarea-bordered w-full h-20"
+      ></textarea>
+      <p class="text-right text-xs text-base-content/50 mt-1">
+        {{ form.value.resume?.length ?? 0 }}/250
+      </p>
+    </fieldset>
+
+    <!-- URLs -->
+    <div class="grid grid-cols-2 gap-4">
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">
+          <i class="fab fa-youtube text-red-500"></i> YouTube URL
+        </legend>
+        <input
+          type="url"
+          formControlName="youtubeUrl"
+          placeholder="https://youtube.com/..."
+          class="input input-bordered w-full"
+        />
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">
+          <i class="fab fa-spotify text-green-500"></i> Spotify URL
+        </legend>
+        <input
+          type="url"
+          formControlName="spotifyUrl"
+          placeholder="https://open.spotify.com/..."
+          class="input input-bordered w-full"
+        />
+      </fieldset>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-end gap-3 mt-4">
+      <app-neutral-button
+        text="Guardar"
+        type="submit"
+        icon="fas fa-circle-check"
+        [disabled]="form.invalid"
+      ></app-neutral-button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,66 @@
+<!-- resource-card.html -->
+<div
+  class="card bg-base-100 shadow-md hover:shadow-2xl transition-shadow duration-300 rounded-3xl h-full"
+>
+  <div class="card-body p-6 gap-4 flex flex-col justify-between">
+    <div class="hover-3d">
+      <!-- content -->
+      <figure class="max-w-100 rounded-2xl">
+        <img src="{{ imageUrl }}" alt="3D card" />
+      </figure>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="flex gap-2 flex-wrap">
+      <div class="font-semibold badge text-white border-none bg-[#C8B4A0] text-sm py-3 px-4 gap-2">
+        <i class="fas fa-user"></i>
+        {{ author }}
+      </div>
+      <div class="badge font-semibold py-3 px-4 gap-2 bg-[#C8B4A0] text-white border-none">
+        <i class="fas fa-book"></i>
+        {{ bibleBook }}
+      </div>
+      @if (private === true) {
+        <div class="badge font-semibold py-3 px-4 gap-2 bg-[#0A3A5C] text-white border-none">
+          <i class="fas fa-book"></i>
+          Privada
+        </div>
+      } @else {
+        <div class="badge font-semibold py-3 px-4 gap-2 bg-[#5A6270] text-white border-none">
+          <i class="fas fa-book"></i>
+          Pública
+        </div>
+      }
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <h2 class="text-xl font-bold leading-snug line-clamp-2">
+        {{ title }}
+      </h2>
+      <p class="text-base text-base-content/60 line-clamp-4 leading-relaxed">
+        {{ resume }}
+      </p>
+    </div>
+
+    <div class="justify-end flex gap-4 mt-2">
+      <app-neutral-button icon="fa-duotone fa-solid fa-arrow-right"></app-neutral-button>
+      <app-neutral-button icon="fa-duotone fa-solid fa-link"></app-neutral-button>
+      <app-neutral-button icon="fa-duotone fa-solid fa-play"></app-neutral-button>
+      <app-menu-boton
+        [buttons]="[
+          { icon: 'fa-solid fa-pen-to-square', title: 'Editar' },
+          { icon: 'fa-solid fa-trash', title: 'Eliminar' },
+          { icon: 'fa-brands fa-youtube', title: 'Editar' },
+          { icon: 'fa-brands fa-spotify', title: 'Editar' },
+          ]"
+      ></app-menu-boton>
+    </div>
+  </div>
+</div>

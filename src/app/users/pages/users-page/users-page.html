@@ -1,0 +1,6 @@
+<!-- users-page.component.html -->
+<ul class="list bg-base-100 rounded-box shadow-md">
+  @for (user of users(); track user.id) {
+    <app-user-table [user]="user" />
+  }
+</ul>
